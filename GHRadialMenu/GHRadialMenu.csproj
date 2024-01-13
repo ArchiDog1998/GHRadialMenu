@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFrameworks>net7.0-windows</TargetFrameworks>
+    <Version>1.0</Version>
+    <Title>GHRadioMenu</Title>
+    <Description>Description of GHRadioMenu</Description>
+    <TargetExt>.gha</TargetExt>
+	<Nullable>enable</Nullable>
+	<LangVersion>latest</LangVersion>
+	<UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Grasshopper" Version="8.0.*" IncludeAssets="compile;build" />
+    <PackageReference Include="SimpleGrasshopper" Version="1.4.3" />
+  </ItemGroup>
+
+</Project>
