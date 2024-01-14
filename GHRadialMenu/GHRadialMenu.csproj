@@ -2,21 +2,21 @@
 	
   <PropertyGroup>
     <TargetFrameworks>net7.0-windows</TargetFrameworks>
-    <Version>1.0</Version>
+    <Version>1.0.0</Version>
     <Title>GHRadioMenu</Title>
     <Description>Description of GHRadioMenu</Description>
     <TargetExt>.gha</TargetExt>
 	<Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
 	<UseWindowsForms>true</UseWindowsForms>
-	 <UseWPF>true</UseWPF>
+	<UseWPF>true</UseWPF>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Grasshopper" Version="8.0.*" IncludeAssets="compile;build" />
-    <PackageReference Include="SimpleGrasshopper" Version="1.4.3" />
-	<EmbeddedResource Include="Icons/*.png"/>
+    <PackageReference Include="SimpleGrasshopper" Version="1.4.5" />
+	<EmbeddedResource Include="Icons/*.png" />
   </ItemGroup>
 
 </Project>

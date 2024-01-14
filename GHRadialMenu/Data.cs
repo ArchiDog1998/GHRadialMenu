@@ -31,47 +31,19 @@ internal static partial class Data
         }
     }
 
-    //private static Shortcut[] GetDefaultShortcuts()
-    //{
-    //    try
-    //    {
-    //        return IOHelper.DeserializeObject<Shortcut[]>(typeof(Data).Assembly.GetString())
-    //    }
-    //    catch
-    //    {
-    //        return [];
-    //    }
-    //}
+    private static Shortcut[] GetDefaultShortcuts()
+    {
+        try
+        {
+            return IOHelper.DeserializeObject<Shortcut[]>(
+                typeof(Data).Assembly.GetString("https://raw.githubusercontent.com/ArchiDog1998/GHRadialMenu/main/Resources/DefaultShortcuts.json") ?? string.Empty) ?? [];
+        }
+        catch
+        {
+            return [];
+        }
+    }
 
     [Setting]
-    private static readonly Shortcut[] _shortcuts =
-    [
-        new()
-        {
-            Name = "Preview\nEnable",
-            FirstKey = Keys.P,
-            SecondKey = Keys.I,
-            Actions =
-            [
-                new MenuItemAction("Solution", "Preview Selected On"),
-                new MenuItemAction("Solution", "Preview Selected Off"),
-                new MenuItemAction("Solution", "Toggle Preview"),
-                new MenuItemAction("Solution", "Enable Selected"),
-                new MenuItemAction("Solution", "Disable Selected"),
-                new MenuItemAction("Solution", "Toggle Enable Selected"),
-            ],
-        },
-        new()
-        {
-            Name = "Points",
-            FirstKey = Keys.P,
-            SecondKey = Keys.P,
-            Actions =
-            [
-                new NewObjectAction(new("3581f42a-9592-4549-bd6b-1c0fc39d067b")),
-                new NewObjectAction(new("571ca323-6e55-425a-bf9e-ee103c7ba4b9")),
-                new NewObjectAction(new("6eaffbb2-3392-441a-8556-2dc126aa8910")),
-            ],
-        },
-    ];
+    private static readonly Shortcut[] _shortcuts = GetDefaultShortcuts();
 }

@@ -45,14 +45,9 @@ public partial class ShortcutEditor : Window
             return;
         }
 
-        var cell = e.OriginalSource as DataGridCell;
-        if (cell == null) return;
-
-        var column = cell.Column as DataGridBoundColumn;
-        if (column == null) return;
-
-        var data = cell.DataContext as ShortcutViewModel;
-        if (data == null) return;
+        if (e.OriginalSource is not DataGridCell cell) return;
+        if (cell.Column is not DataGridBoundColumn column) return;
+        if (cell.DataContext is not ShortcutViewModel data) return;
 
         var propertyName = ((Binding)column.Binding)?.Path.Path;
 
@@ -60,7 +55,7 @@ public partial class ShortcutEditor : Window
         if (property == null || property.PropertyType != typeof(System.Windows.Forms.Keys)) return;
 
 
-        var Key = System.Windows.Forms.Control.ModifierKeys
+        var Key = key == System.Windows.Input.Key.Escape ? System.Windows.Forms.Keys.None : System.Windows.Forms.Control.ModifierKeys
             | (System.Windows.Forms.Keys)KeyInterop.VirtualKeyFromKey(key);
 
         property.SetValue(data, Key);

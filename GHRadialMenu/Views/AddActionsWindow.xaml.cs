@@ -27,10 +27,15 @@ public partial class AddActionsWindow : Window
         if (sender is not ListBox listBox) return;
         if (listBox.SelectedItem is not ToolStripMenuItem item) return;
 
-        if (item.DropDownItems.Count == 0) return;
-
-        ViewModel.Items.Add(item.Text);
-        ViewModel.UpdateItems(item.DropDownItems);
+        if (item.DropDownItems.Count == 0)
+        {
+            ViewModel.SelectedMenuItemCmdCommand.Execute(null);
+        }
+        else
+        {
+            ViewModel.Items.Add(item.Text);
+            ViewModel.UpdateItems(item.DropDownItems);
+        }
     }
 
     private void MenuItemSelectList_SelectionChanged(object sender, SelectionChangedEventArgs e)

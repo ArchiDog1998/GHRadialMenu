@@ -7,7 +7,7 @@
         xmlns:vm ="clr-namespace:GHRadialMenu.Views.ViewModels"
         mc:Ignorable="d" Topmost="True" WindowStyle="ToolWindow"
         d:DataContext="{d:DesignInstance Type=vm:ShortcutEditorViewModel}"
-        Title="Shortcut Editor" Height="450" Width="500">
+        Title="Shortcut Editor" Height="450" Width="600">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,8 +25,10 @@
             </StackPanel>
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" 
                     VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                <Button Content="Copy" Command="{Binding CopyCommand}"/>
-                <Button Content="Paste" Command="{Binding PasteCommand}"/>
+                <Button Content="Copy" Command="{Binding CopyCommand}" 
+                        ToolTip="Copy your shortcuts to the clipboard."/>
+                <Button Content="Paste" Command="{Binding PasteCommand}"
+                        ToolTip="Paste the shortcuts from the clipboard. It'll replace your setting if the shorcut keys are the same."/>
             </StackPanel>
         </DockPanel>
 
@@ -34,10 +36,16 @@
         <DataGrid Margin="4 0 4 5" ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" 
                   CanUserAddRows="True" PreviewKeyDown="DataGrid_PreviewKeyDown">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="AcceptsReturn" Value="true" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="First Key" Binding="{Binding FirstKey}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Second Key" Binding="{Binding SecondKey}" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Actions">
+                <DataGridTemplateColumn Header="Actions" Width="210">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ListBox ItemsSource="{Binding Actions}"

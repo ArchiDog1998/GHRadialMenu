@@ -17,7 +17,7 @@ public class GHRadialMenuInfo : GH_AssemblyInfo
     public override Bitmap Icon => Data.Icon;
 
     //Return a short string describing the purpose of this GHA library.
-    public override string Description => "The Custom radial menu in grasshopper!";
+    public override string Description => "The custom radial menu in Grasshopper!";
 
     public override Guid Id => new("32354c1e-486b-4508-88d9-85bcec332bc3");
 

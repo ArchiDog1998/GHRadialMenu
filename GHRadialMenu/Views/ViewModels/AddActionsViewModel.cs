@@ -15,7 +15,6 @@ internal partial class AddActionsViewModel : ObservableObject
 
     public IAction[] AddedActions { get; private set; } = [];
 
-    private static bool HasDocument => Instances.ActiveCanvas?.IsDocument ?? false;
 
 
     [ObservableProperty]
@@ -57,6 +56,13 @@ internal partial class AddActionsViewModel : ObservableObject
             return new NewObjectAction(guid);
         })];
         _owner.Close();
+    }
+
+    private static bool HasDocument()
+    {
+        if (Instances.ActiveCanvas?.Document == null) return false;
+
+        return Instances.ActiveDocument.SelectedObjects().Count > 0;
     }
 
     public void UpdateItems(ToolStripItemCollection? items)
