@@ -12,7 +12,7 @@ internal partial class ShortcutEditorViewModel : ObservableObject
     private readonly Shortcut[] _lastShortcuts = Data.Shortcuts;
 
     [ObservableProperty]
-    ObservableCollection<ShortcutViewModel> _shortcuts 
+    ObservableCollection<ShortcutViewModel> _shortcuts
         = new(Data.Shortcuts.Select(s => new ShortcutViewModel(s)));
 
     public Shortcut[] NowShortcuts => [.. Shortcuts];

@@ -43,7 +43,7 @@ internal class RadioMenuInteraction : IGH_MouseInteraction
         InnerRadius = (int)Math.Max(count * 30 / Math.Tau, MinInnerRadius);
         var radius = InnerRadius + 20;
 
-        Rectangles  = new Rectangle[count];
+        Rectangles = new Rectangle[count];
         for (int i = 0; i < count; i++)
         {
             var alpha = MathF.Tau * i / count;
@@ -179,7 +179,7 @@ internal class RadioMenuInteraction : IGH_MouseInteraction
                 }
                 else
                 {
-                    graphics.DrawString(Actions[i].Name, GH_FontServer.StandardBold, brush, 
+                    graphics.DrawString(Actions[i].Name, GH_FontServer.StandardBold, brush,
                         rect.Location + rect.Size / 2, GH_TextRenderingConstants.CenterCenter);
                 }
             }

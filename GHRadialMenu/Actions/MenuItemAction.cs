@@ -1,6 +1,5 @@
 ﻿using Grasshopper;
 using Grasshopper.GUI.Canvas;
-using Grasshopper.Kernel;
 using Newtonsoft.Json;
 using System;
 using System.Drawing;
@@ -24,7 +23,7 @@ internal class MenuItemAction(params string[] itemHierarchy) : IAction
 
     private ToolStripMenuItem? _item = null;
     [JsonIgnore]
-    public ToolStripMenuItem? TargetItem 
+    public ToolStripMenuItem? TargetItem
     {
         get
         {
@@ -75,7 +74,7 @@ internal class MenuItemAction(params string[] itemHierarchy) : IAction
         }
         finally
         {
-            if(enumerator is IDisposable disposable)
+            if (enumerator is IDisposable disposable)
             {
                 disposable.Dispose();
             }

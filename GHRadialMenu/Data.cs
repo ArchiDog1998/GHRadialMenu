@@ -3,11 +3,14 @@ using GHRadialMenu.Views;
 using SimpleGrasshopper.Attributes;
 using SimpleGrasshopper.Util;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace GHRadialMenu;
 internal static partial class Data
 {
+    public static readonly Bitmap Icon = typeof(Data).Assembly.GetBitmap("RadialMenuIcon.png")!;
+
     internal static ShortcutEditor? _editor;
 
     [Config("Radial Menu", "Edit the shortcuts")]
@@ -27,6 +30,18 @@ internal static partial class Data
             }
         }
     }
+
+    //private static Shortcut[] GetDefaultShortcuts()
+    //{
+    //    try
+    //    {
+    //        return IOHelper.DeserializeObject<Shortcut[]>(typeof(Data).Assembly.GetString())
+    //    }
+    //    catch
+    //    {
+    //        return [];
+    //    }
+    //}
 
     [Setting]
     private static readonly Shortcut[] _shortcuts =
@@ -59,36 +74,4 @@ internal static partial class Data
             ],
         },
     ];
-
-    public static void PasteFromClipboard()
-    {
-        var str = Clipboard.GetText();
-        var newShortcuts = IOHelper.DeserializeObject<Shortcut[]>(str);
-
-        if (newShortcuts == null) return;
-
-        var oldShortcuts = Shortcuts;
-        var result = new List<Shortcut>(newShortcuts.Length + oldShortcuts.Length);
-        result.AddRange(oldShortcuts);
-
-        foreach (var shortcut in newShortcuts )
-        {
-            Shortcut? removedShortcut = null;
-            foreach (var eshortCut in result)
-            {
-                if(eshortCut.FirstKey == shortcut.FirstKey
-                    && eshortCut.SecondKey == shortcut.SecondKey)
-                {
-                    removedShortcut = eshortCut;
-                    break;
-                }
-            }
-            if (removedShortcut is not null)
-            {
-                result.Remove(removedShortcut);
-            }
-            result.Add(shortcut);
-        }
-        Shortcuts = [.. result];
-    }
 }

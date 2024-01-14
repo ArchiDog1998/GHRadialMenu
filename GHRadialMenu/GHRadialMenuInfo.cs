@@ -14,12 +14,12 @@ public class GHRadialMenuInfo : GH_AssemblyInfo
     public override string Name => "Radial Menu";
 
     //Return a 24x24 pixel bitmap to represent this GHA library.
-    public override Bitmap Icon => null!;
+    public override Bitmap Icon => Data.Icon;
 
     //Return a short string describing the purpose of this GHA library.
     public override string Description => "The Custom radial menu in grasshopper!";
 
-    public override Guid Id => new ("32354c1e-486b-4508-88d9-85bcec332bc3");
+    public override Guid Id => new("32354c1e-486b-4508-88d9-85bcec332bc3");
 
     //Return a string identifying you or your company.
     public override string AuthorName => "秋水";
@@ -35,8 +35,8 @@ partial class SimpleAssemblyPriority : IDisposable
     public static Keys LastKey
     {
         get => (DateTime.Now - _currentDateTime).TotalSeconds < 4 ? _key : Keys.None;
-        set 
-        { 
+        set
+        {
             _key = value;
             _currentDateTime = DateTime.Now;
         }

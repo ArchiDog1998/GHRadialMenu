@@ -27,7 +27,7 @@ internal partial class ShortcutViewModel(Shortcut shortcut) : ObservableObject
 
     public ShortcutViewModel() : this(new Shortcut())
     {
-        
+
     }
 
     public static implicit operator Shortcut(ShortcutViewModel model) => new()
@@ -41,7 +41,7 @@ internal partial class ShortcutViewModel(Shortcut shortcut) : ObservableObject
     [RelayCommand(CanExecute = nameof(CanRemove))]
     private void RemoveSelected()
     {
-        if(Selected >= 0)
+        if (Selected >= 0)
         {
             Actions.RemoveAt(Selected);
         }
@@ -52,7 +52,7 @@ internal partial class ShortcutViewModel(Shortcut shortcut) : ObservableObject
     {
         var window = new AddActionsWindow();
         window.ShowDialog();
-        foreach(var action in window.AddedActions)
+        foreach (var action in window.AddedActions)
         {
             Actions.Add(action);
         }

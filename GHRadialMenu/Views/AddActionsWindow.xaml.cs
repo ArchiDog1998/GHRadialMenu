@@ -1,6 +1,5 @@
 ﻿using GHRadialMenu.Actions;
 using GHRadialMenu.Views.ViewModels;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -20,7 +19,7 @@ public partial class AddActionsWindow : Window
     {
         DataContext = new AddActionsViewModel(this);
         InitializeComponent();
-        if(Data._editor != null) Owner = Data._editor;
+        if (Data._editor != null) Owner = Data._editor;
     }
 
     private void ListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

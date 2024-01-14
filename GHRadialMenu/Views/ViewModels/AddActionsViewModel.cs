@@ -4,11 +4,9 @@ using GHRadialMenu.Actions;
 using Grasshopper;
 using Grasshopper.Kernel.Special;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace GHRadialMenu.Views.ViewModels;
 internal partial class AddActionsViewModel : ObservableObject
@@ -35,7 +33,7 @@ internal partial class AddActionsViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public void SelectedObjectsCmd()
     {
-        AddedActions = [..Instances.ActiveDocument.SelectedObjects().Select(obj =>
+        AddedActions = [.. Instances.ActiveDocument.SelectedObjects().Select(obj =>
         {
             var guid = obj.ComponentGuid;
             if (obj is GH_Cluster || obj.GetType().FullName
@@ -65,7 +63,7 @@ internal partial class AddActionsViewModel : ObservableObject
     {
         MenuItems.Clear();
 
-        if(items == null) return;
+        if (items == null) return;
         var enumerator = items.GetEnumerator();
 
         try
@@ -85,7 +83,7 @@ internal partial class AddActionsViewModel : ObservableObject
         }
     }
 
-    [RelayCommand(CanExecute =nameof(HasSelectedItem))]
+    [RelayCommand(CanExecute = nameof(HasSelectedItem))]
     public void SelectedMenuItemCmd()
     {
         if (_owner.MenuItemSelectList?.SelectedItem is not ToolStripMenuItem menu) return;
