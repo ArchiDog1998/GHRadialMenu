@@ -34,13 +34,16 @@ partial class SimpleAssemblyPriority : IDisposable
     private static DateTime _currentDateTime;
     public static Keys LastKey
     {
-        get => (DateTime.Now - _currentDateTime).TotalSeconds < 5 ? _key : Keys.None;
+        get => (DateTime.Now - _currentDateTime).TotalSeconds < 4 ? _key : Keys.None;
         set 
         { 
             _key = value;
             _currentDateTime = DateTime.Now;
         }
     }
+
+    protected override int? MenuIndex => 1;
+    protected override int InsertIndex => 16;
 
 
     protected override void DoWithEditor(GH_DocumentEditor editor)
@@ -55,7 +58,7 @@ partial class SimpleAssemblyPriority : IDisposable
         if (canvas.ActiveInteraction is RadioMenuInteraction) return true;
         if (canvas.ActiveInteraction != null) return false;
 
-        var shortcuts = ShortcutManager.Shortcuts;
+        var shortcuts = Data.Shortcuts;
 
         foreach (var shortcut in shortcuts)
         {
@@ -84,7 +87,7 @@ partial class SimpleAssemblyPriority : IDisposable
         }
 
         LastKey = key;
-        return shortcuts.Any(s => s.PrimaryKey == key);
+        return shortcuts.Any(s => s.FirstKey == key);
     }
 
     public void Dispose()

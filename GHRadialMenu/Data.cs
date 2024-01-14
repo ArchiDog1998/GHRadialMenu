@@ -1,20 +1,41 @@
 ﻿using GHRadialMenu.Actions;
+using GHRadialMenu.Views;
 using SimpleGrasshopper.Attributes;
 using SimpleGrasshopper.Util;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace GHRadialMenu;
-internal static partial class ShortcutManager
+internal static partial class Data
 {
+    internal static ShortcutEditor? _editor;
+
+    [Config("Radial Menu", "Edit the shortcuts")]
+    public static object Edit
+    {
+        get => true;
+        set
+        {
+            if (_editor != null)
+            {
+                _editor.Focus();
+            }
+            else
+            {
+                _editor = new ShortcutEditor();
+                _editor.Show();
+            }
+        }
+    }
+
     [Setting]
     private static readonly Shortcut[] _shortcuts =
     [
         new()
         {
             Name = "Preview\nEnable",
-            PrimaryKey = Keys.P,
-            SecondaryKey = Keys.I,
+            FirstKey = Keys.P,
+            SecondKey = Keys.I,
             Actions =
             [
                 new MenuItemAction("Solution", "Preview Selected On"),
@@ -28,8 +49,8 @@ internal static partial class ShortcutManager
         new()
         {
             Name = "Points",
-            PrimaryKey = Keys.P,
-            SecondaryKey = Keys.P,
+            FirstKey = Keys.P,
+            SecondKey = Keys.P,
             Actions =
             [
                 new NewObjectAction(new("3581f42a-9592-4549-bd6b-1c0fc39d067b")),
@@ -39,12 +60,7 @@ internal static partial class ShortcutManager
         },
     ];
 
-    public static void CopyToClipboard()
-    {
-        Clipboard.SetText(IOHelper.SerializeObject(Shortcuts));
-    }
-
-    public static void PastFromClipboard()
+    public static void PasteFromClipboard()
     {
         var str = Clipboard.GetText();
         var newShortcuts = IOHelper.DeserializeObject<Shortcut[]>(str);
@@ -60,8 +76,8 @@ internal static partial class ShortcutManager
             Shortcut? removedShortcut = null;
             foreach (var eshortCut in result)
             {
-                if(eshortCut.PrimaryKey == shortcut.PrimaryKey
-                    && eshortCut.SecondaryKey == shortcut.SecondaryKey)
+                if(eshortCut.FirstKey == shortcut.FirstKey
+                    && eshortCut.SecondKey == shortcut.SecondKey)
                 {
                     removedShortcut = eshortCut;
                     break;
