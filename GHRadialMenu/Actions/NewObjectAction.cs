@@ -10,6 +10,8 @@ internal class NewObjectAction() : IAction
 {
     public Guid ComponentGuid { get; set; }
 
+    public string InitCode { get; set; } = string.Empty;
+
     private string _name = string.Empty, _description = string.Empty;
     [JsonIgnore]
     public string Name => string.IsNullOrEmpty(_name) ? _name = Proxy?.Desc.Name ?? _name : _name;
@@ -53,6 +55,7 @@ internal class NewObjectAction() : IAction
     {
         PointF location = controlPoint;
         canvas.Viewport.Unproject(ref location);
-        canvas.InstantiateNewObject(_proxy?.Guid ?? ComponentGuid, location, true);
+
+        canvas.InstantiateNewObject(_proxy?.Guid ?? ComponentGuid, InitCode, location, true);
     }
 }

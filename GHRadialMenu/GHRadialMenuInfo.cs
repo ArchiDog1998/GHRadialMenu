@@ -30,15 +30,27 @@ public class GHRadialMenuInfo : GH_AssemblyInfo
 
 partial class SimpleAssemblyPriority : IDisposable
 {
-    private static Keys _key;
-    private static DateTime _currentDateTime;
+    private static Keys _lastkey;
+    private static DateTime _lastKeyTime;
     public static Keys LastKey
     {
-        get => (DateTime.Now - _currentDateTime).TotalSeconds < 4 ? _key : Keys.None;
+        get => (DateTime.Now - _lastKeyTime).TotalSeconds < 4 ? _lastkey : Keys.None;
         set
         {
-            _key = value;
-            _currentDateTime = DateTime.Now;
+            _lastkey = value;
+            _lastKeyTime = DateTime.Now;
+        }
+    }
+
+    private static Keys _maskkey;
+    private static DateTime _maskKeyTime;
+    public static Keys MaskKey
+    {
+        get => (DateTime.Now - _maskKeyTime).TotalSeconds < 0.5f ? _maskkey : Keys.None;
+        set
+        {
+            _maskkey = value;
+            _maskKeyTime = DateTime.Now;
         }
     }
 
@@ -55,7 +67,12 @@ partial class SimpleAssemblyPriority : IDisposable
     private bool OnKeyDown(Keys key)
     {
         var canvas = Instances.ActiveCanvas;
-        if (canvas.ActiveInteraction is RadioMenuInteraction) return true;
+        if (canvas.ActiveInteraction is RadioMenuInteraction
+            || MaskKey == key)
+        {
+            MaskKey = key;
+            return true;
+        }
         if (canvas.ActiveInteraction != null) return false;
 
         var shortcuts = Data.Shortcuts;
@@ -82,6 +99,7 @@ partial class SimpleAssemblyPriority : IDisposable
                     break;
             }
 
+            MaskKey = key;
             LastKey = Keys.None;
             return true;
         }

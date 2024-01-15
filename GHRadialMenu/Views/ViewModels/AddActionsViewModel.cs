@@ -35,23 +35,14 @@ internal partial class AddActionsViewModel : ObservableObject
         AddedActions = [.. Instances.ActiveDocument.SelectedObjects().Select(obj =>
         {
             var guid = obj.ComponentGuid;
-            if (obj is GH_Cluster || obj.GetType().FullName
-                is "GhPython.Component.PythonComponent_OBSOLETE"
-                or "GhPython.Component.ZuiPythonComponent"
-                or "ScriptComponents.Component_CSNET_Script"
-                or "ScriptComponents.Component_CSNET_Script_OBSOLETE"
-                or "ScriptComponents.Component_VBNET_Script"
-                or "ScriptComponents.Component_VBNET_Script_OBSOLETE"
-                or "RhinoCodePluginGH.Components.ScriptComponent")
+            foreach (var proxy in Instances.ComponentServer.ObjectProxies)
             {
-                foreach (var proxy in Instances.ComponentServer.ObjectProxies)
-                {
-                    if (proxy.Desc.Name != obj.Name) continue;
-                    if (proxy.Desc.SubCategory != obj.SubCategory) continue;
-                    if (proxy.Desc.Category != obj.Category) continue;
-                    guid = proxy.LibraryGuid;
-                    break;
-                }
+                if (proxy.Desc.Name != obj.Name) continue;
+                if (proxy.Desc.SubCategory != obj.SubCategory) continue;
+                if (proxy.Desc.Category != obj.Category) continue;
+                if (proxy.GetType().FullName != "Grasshopper.Kernel.GH_UserObjectProxy") break;
+                guid = proxy.LibraryGuid;
+                break;
             }
             return new NewObjectAction(guid);
         })];

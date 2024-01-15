@@ -8,6 +8,7 @@ namespace GHRadialMenu.Views.ViewModels;
 internal partial class ShortcutViewModel(Shortcut shortcut) : ObservableObject
 {
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedCommand))]
+    [NotifyPropertyChangedFor(nameof(SelectedInitCode))]
     [ObservableProperty]
     private int _selected = -1;
 
@@ -24,6 +25,27 @@ internal partial class ShortcutViewModel(Shortcut shortcut) : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<IAction> _actions = new(shortcut.Actions);
+
+
+    public string SelectedInitCode
+    {
+        get
+        {
+            if (Selected >= 0 && Actions[Selected] is NewObjectAction obj)
+            {
+                return obj.InitCode;
+            }
+            return string.Empty;
+        }
+        set 
+        {
+            if (Selected >= 0 && Actions[Selected] is NewObjectAction obj)
+            {
+                obj.InitCode = value;
+            }
+        }
+    }
+
 
     public ShortcutViewModel() : this(new Shortcut())
     {

@@ -7,7 +7,7 @@
         xmlns:vm ="clr-namespace:GHRadialMenu.Views.ViewModels"
         mc:Ignorable="d" Topmost="True" WindowStyle="ToolWindow"
         d:DataContext="{d:DesignInstance Type=vm:ShortcutEditorViewModel}"
-        Title="Shortcut Editor" Height="450" Width="600">
+        Title="Shortcut Editor" Height="450" Width="700">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -95,6 +95,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Selected InitCode" Binding="{Binding SelectedInitCode}"/>
+
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>

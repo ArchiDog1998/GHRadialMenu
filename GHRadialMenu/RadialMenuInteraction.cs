@@ -227,7 +227,10 @@ internal class RadioMenuInteraction : IGH_MouseInteraction
 
     public GH_ObjectResponse RespondToMouseUp(GH_Canvas sender, GH_CanvasMouseEvent e)
     {
-        PerformAction();
+        if (e.Button != MouseButtons.Right)
+        {
+            PerformAction();
+        }
         return GH_ObjectResponse.Release;
     }
 
