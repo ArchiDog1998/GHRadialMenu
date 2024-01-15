@@ -2,7 +2,7 @@
 	
   <PropertyGroup>
     <TargetFrameworks>net7.0-windows</TargetFrameworks>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Title>GHRadioMenu</Title>
     <Description>Description of GHRadioMenu</Description>
     <TargetExt>.gha</TargetExt>
