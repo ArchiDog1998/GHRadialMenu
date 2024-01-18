@@ -1,6 +1,6 @@
 # Radial Menu
 
-This is a plugin for you to create your custom radial menus in Grasshopper!
+This is a plugin for you to create your custom radial menus in Grasshopper! Download it in [Food4Rhino](https://www.food4rhino.com/en/app/radialmenu?lang=en)!
 
 ## Usage
 
